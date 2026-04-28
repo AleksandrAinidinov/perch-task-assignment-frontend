@@ -9,6 +9,7 @@ import { TaskService } from '../services/task.service';
 })
 export class HomeComponent implements OnInit {
   tasks: Task[] = [];
+  task = { title: '', description: '' };
 
   constructor(private taskService: TaskService) { }
 
@@ -23,6 +24,22 @@ export class HomeComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching tasks:', error);
+      }
+    })
+  }
+
+  addTask() {
+    this.taskService.createTask(this.task as Task).subscribe({
+      next: (res) => {
+        console.log('Task created successfully:', res);
+        this.getTasks();
+        this.task = {
+          title: '',
+          description: ''
+        };
+      },
+      error: (error) => {
+        console.error('Error creating task:', error);
       }
     })
   }
