@@ -8,9 +8,8 @@ const HttpsProxyAgent = require('https-proxy-agent');
  */
 const proxyConfig = [
   {
-    context: '/api',
-    pathRewrite: { '^/api': '' },
-    target: 'https://api.chucknorris.io',
+    context: ['/v1'],
+    target: 'http://localhost:3000',
     changeOrigin: true,
     secure: false
   }
