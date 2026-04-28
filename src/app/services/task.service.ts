@@ -18,12 +18,12 @@ export class TaskService {
 
     // POST /tasks
     createTask(task: Task) {
-        return this.http.post<Task>(this.baseUrl, task);
+        return this.http.post<{ data: Task }>(this.baseUrl, task);
     }
 
     // PATCH /tasks/:id
     updateTask(id: string, completed: boolean) {
-        return this.http.patch<Task>(`${this.baseUrl}/${id}`, { completed });
+        return this.http.patch<{ data: Task }>(`${this.baseUrl}/${id}`, { completed });
     }
 
     // DELETE /tasks/:id

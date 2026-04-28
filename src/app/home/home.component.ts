@@ -43,4 +43,30 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+
+  updateTaskStatus(id: string, completed: boolean) {
+    this.taskService.updateTask(id, completed).subscribe({
+      next: (res) => {
+        console.log('Task updated successfully:', res);
+        this.getTasks();
+      },
+      error: (error) => {
+        console.error('Error updating task:', error);
+      }
+    })
+  }
+
+  deleteTask(id: string) {
+    if (confirm('Are you sure you want to delete this task?')) {
+      this.taskService.deleteTask(id).subscribe({
+        next: (res) => {
+          console.log('Task deleted successfully:', res);
+          this.getTasks();
+        },
+        error: (error) => {
+          console.error('Error deleting task:', error);
+        }
+      })
+    }
+  }
 }

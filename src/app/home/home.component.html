@@ -33,10 +33,12 @@
       </div>
 
       <div style="display: flex; gap: 10px;">
-        <!-- TODO: Add Buttons here -->
-        <span class="badge" [class.bg-success]="task.completed" [class.bg-warning]="!task.completed">
-          {{ task.completed ? 'Done' : 'Pending' }}
-        </span>
+        <button class="btn btn-sm" [class.btn-outline-success]="!task.completed"
+          [class.btn-outline-secondary]="task.completed" (click)="updateTaskStatus(task.id, !task.completed)">
+          {{ task.completed ? 'Undo' : 'Complete' }}
+        </button>
+
+        <button class="btn btn-sm btn-danger" (click)="deleteTask(task.id)">Delete</button>
       </div>
     </li>
   </ul>
