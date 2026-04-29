@@ -10,6 +10,7 @@ import { TaskService } from '../services/task.service';
 export class HomeComponent implements OnInit {
   tasks: Task[] = [];
   task = { title: '', description: '' };
+  submitted = false;
 
   constructor(private taskService: TaskService) { }
 
@@ -29,6 +30,11 @@ export class HomeComponent implements OnInit {
   }
 
   addTask() {
+    this.submitted = true;
+    if (!this.task.title.trim()) {
+      return;
+    }
+
     this.taskService.createTask(this.task as Task).subscribe({
       next: (res) => {
         console.log('Task created successfully:', res);
@@ -37,6 +43,7 @@ export class HomeComponent implements OnInit {
           title: '',
           description: ''
         };
+        this.submitted = false;
       },
       error: (error) => {
         console.error('Error creating task:', error);

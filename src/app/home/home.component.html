@@ -1,44 +1,25 @@
-<!-- <div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>List of Tasks</h1>
-
-    <ul>
-      <li *ngFor="let task of tasks">
-        <div>
-          <h4>{{ task.title }}</h4>
-          <p>{{ task.description }}</p>
-        </div>
-
-        <div>
-          <p>{{ task.completed ? 'Completed' : 'Pending'}}</p>
-        </div>
-
-        <div>
-          <button>Complete</button>
-          <button>Delete</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-</div> -->
-
-<div class="container mt-4">
+<div class="container mt-5 content-wrapper">
   <h2>List of Tasks</h2>
 
-  <ul class="list-group">
-    <li *ngFor="let task of tasks" class="list-group-item d-flex justify-content-between align-items-center">
-      <div style="text-align: left;">
-        <h5>{{ task.title }}</h5>
-        <p class="mb-0 text-muted">{{ task.description }}</p>
+  <ul class="list-group shadow-sm">
+    <li *ngFor="let task of tasks" class="list-group-item d-flex justify-content-between align-items-center task-item"
+      [class.completed]="task.completed">
+
+      <div class="d-flex align-items-center">
+        <div class="form-check me-3">
+          <input type="checkbox" class="form-check-input h5 mb-0" [checked]="task.completed"
+            (change)="updateTaskStatus(task.id, !task.completed)">
+        </div>
+        <div class="task-content">
+          <h5 class="mb-0 task-title">{{ task.title }}</h5>
+          <p class="mb-0 text-muted small">{{ task.description }}</p>
+        </div>
       </div>
 
-      <div style="display: flex; gap: 10px;">
-        <button class="btn btn-sm" [class.btn-outline-success]="!task.completed"
-          [class.btn-outline-secondary]="task.completed" (click)="updateTaskStatus(task.id, !task.completed)">
-          {{ task.completed ? 'Undo' : 'Complete' }}
+      <div class="actions">
+        <button class="btn btn-sm text-danger" (click)="deleteTask(task.id)" title="Delete Task">
+          <i class="fas fa-trash-alt"></i>
         </button>
-
-        <button class="btn btn-sm btn-danger" (click)="deleteTask(task.id)">Delete</button>
       </div>
     </li>
   </ul>
@@ -53,12 +34,16 @@
     <div class="card-header">Add New Task</div>
     <div class="card-body">
       <form #taskForm="ngForm">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input [(ngModel)]="task.title" type="text" class="form-control" name="title" placeholder="Enter task title">
+        <div class="form-group mb-3">
+          <label for="title" class="form-label fw-bold">Title</label>
+          <input [(ngModel)]="task.title" required="required" type="text" class="form-control" name="title"
+            placeholder="Enter task title" [class.is-invalid]="submitted && !task.title.trim()">
+          <div class="invalid-feedback">
+            Please provide a title for the task.
+          </div>
         </div>
-        <div class="form-group">
-          <label for="description">Description</label>
+        <div class="form-group mb-3">
+          <label for="description" class="form-label fw-bold">Description</label>
           <textarea [(ngModel)]="task.description" class="form-control" name="description" rows="3"
             placeholder="Enter task description"></textarea>
         </div>
