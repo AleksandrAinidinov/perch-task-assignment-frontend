@@ -34,7 +34,7 @@
   <div class="card mt-3">
     <div class="card-header">Add New Task</div>
     <div class="card-body">
-      <form #taskForm="ngForm">
+      <form #taskForm="ngForm" (ngSubmit)="addTask()">
         <div class="form-group mb-3">
           <label for="title" class="form-label fw-bold">Title</label>
           <input [(ngModel)]="task.title" required="required" type="text" class="form-control" name="title"
@@ -43,14 +43,14 @@
             Please enter a title for the task!
           </div>
         </div>
-        
+
         <div class="form-group mb-3">
           <label for="description" class="form-label fw-bold">Description</label>
           <textarea [(ngModel)]="task.description" class="form-control" name="description" rows="3"
             placeholder="Enter task description"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary" (click)="addTask()">Add Task</button>
+        <button type="submit">Add Task</button>
       </form>
     </div>
   </div>
