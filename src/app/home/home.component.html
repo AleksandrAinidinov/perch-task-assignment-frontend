@@ -1,6 +1,7 @@
 <div class="container mt-5 content-wrapper">
   <h2>List of Tasks</h2>
 
+  <!-- Task List Display -->
   <ul class="list-group shadow-sm">
     <li *ngFor="let task of tasks" class="list-group-item d-flex justify-content-between align-items-center task-item"
       [class.completed]="task.completed">
@@ -39,14 +40,16 @@
           <input [(ngModel)]="task.title" required="required" type="text" class="form-control" name="title"
             placeholder="Enter task title" [class.is-invalid]="submitted && !task.title.trim()">
           <div class="invalid-feedback">
-            Please provide a title for the task.
+            Please enter a title for the task!
           </div>
         </div>
+        
         <div class="form-group mb-3">
           <label for="description" class="form-label fw-bold">Description</label>
           <textarea [(ngModel)]="task.description" class="form-control" name="description" rows="3"
             placeholder="Enter task description"></textarea>
         </div>
+
         <button type="submit" class="btn btn-primary" (click)="addTask()">Add Task</button>
       </form>
     </div>

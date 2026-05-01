@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     this.getTasks();
   }
 
+  // Fetch all tasks from the backend
   getTasks() {
     this.taskService.getAllTasks().subscribe({
       next: (res) => {
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  // Add a new task using form's data
   addTask() {
     this.submitted = true;
     if (!this.task.title.trim()) {
@@ -51,6 +53,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  // Update the completion status of a task
   updateTaskStatus(id: string, completed: boolean) {
     this.taskService.updateTask(id, completed).subscribe({
       next: (res) => {
@@ -63,6 +66,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  // Delete a task by its ID
   deleteTask(id: string) {
     if (confirm('Are you sure you want to delete this task?')) {
       this.taskService.deleteTask(id).subscribe({
