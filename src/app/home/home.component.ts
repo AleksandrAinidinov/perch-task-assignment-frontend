@@ -9,13 +9,21 @@ import { TaskService } from '../services/task.service';
 })
 export class HomeComponent implements OnInit {
   tasks: Task[] = [];
-  task = { title: '', description: '' };
+  task = { title: '', description: '', priority: 'Medium' };
+  searchText: string = '';
   submitted = false;
 
   constructor(private taskService: TaskService) { }
 
   ngOnInit() {
     this.getTasks();
+  }
+
+  // Filter tasks based on search text
+  get filteredTasks() {
+    return this.tasks.filter(task =>
+      task.title.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   // Fetch all tasks from the backend
@@ -43,7 +51,8 @@ export class HomeComponent implements OnInit {
         this.getTasks();
         this.task = {
           title: '',
-          description: ''
+          description: '',
+          priority: 'Medium'
         };
         this.submitted = false;
       },
@@ -79,5 +88,17 @@ export class HomeComponent implements OnInit {
         }
       })
     }
+  }
+
+  getPriorityClass(priority: string): string {
+    switch (priority) {
+      case 'Low':
+        return 'text-info';
+      case 'Medium':
+        return 'text-warning';
+      case 'High':
+        return 'text-danger fw-bold';
+    }
+    return 'text-secondary';
   }
 }
