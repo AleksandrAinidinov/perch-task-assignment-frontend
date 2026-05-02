@@ -20,6 +20,7 @@
           <h5 class="mb-0 task-title">{{ task.title }}</h5>
           <p class="mb-0 text-muted small">{{ task.description }}</p>
           <span [class]="getPriorityClass(task.priority)">{{ task.priority }}</span>
+          <span [class.text-danger]="isOverdue(task)">{{ task.dueDate | date:'mediumDate' }}</span>
         </div>
       </div>
 
@@ -30,6 +31,10 @@
       </div>
     </li>
   </ul>
+
+  <div *ngIf="completedTasks">
+    <button class="btn btn-sm text-danger" (click)="deleteAllCompletedTasks()" title="Delete Completed Tasks">Clear All Completed Tasks</button>
+  </div>
 
   <!-- If no tasks exist -->
   <div *ngIf="tasks.length === 0" class="alert alert-info mt-3">
@@ -63,6 +68,11 @@
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
+        </div>
+
+        <div>
+          <label for="dueDate" class="form-label fw-bold">Due Date</label>
+          <input [(ngModel)]="task.dueDate" name="dueDate" type="date" class="form-control">
         </div>
 
 

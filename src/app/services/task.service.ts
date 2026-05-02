@@ -30,4 +30,9 @@ export class TaskService {
     deleteTask(id: string) {
         return this.http.delete<void>(`${this.baseUrl}/${id}`);
     }
+
+    // DELETE /tasks/completed
+    deleteAllCompletedTasks() {
+        return this.http.delete<void>(`${this.baseUrl}/completed`);
+    }
 }
